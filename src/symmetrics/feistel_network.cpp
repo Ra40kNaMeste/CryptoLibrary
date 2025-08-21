@@ -1,0 +1,5 @@
+#ifndef SYMMETRIC_FESTELNETWORK
+#define SYMMETRIC_FESTELNETWORK
+#include <feistel_network.h>
+
+#endif // !SYMMETRIC_FESTELNETWORK
