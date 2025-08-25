@@ -11,10 +11,9 @@ class FeistelNetwork : public ISymmetric<size_key> {
 public:
   FeistelNetwork(std::array<std::byte, size_key> key, int rounds);
   ~FeistelNetwork();
-  void encryption(std::shared_ptr<std::istream> input,
-                  std::shared_ptr<std::ostream> output) override;
-  void decryption(std::shared_ptr<std::istream> input,
-                  std::shared_ptr<std::ostream> output) override;
+  virtual void encryption(const char *input, char *output) override;
+  virtual void decryption(const char *input, char *output) override;
+  virtual int get_size_block() override { return size_block * count_block; }
 
 protected:
   virtual std::array<std::byte, size_round_key> get_round_key(int i) = 0;
@@ -24,9 +23,7 @@ protected:
   virtual void append(char *target, const char *value) = 0;
 
 private:
-  void cryption(std::shared_ptr<std::istream> input,
-                std::shared_ptr<std::ostream> output,
-                std::function<int(int)> get_i);
+  void cryption(const char *input, char *output, std::function<int(int)> get_i);
   int _rounds;
 };
 #include "feistel_network.cpp"

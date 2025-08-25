@@ -9,10 +9,12 @@ endif()
 
 add_library(crypto_lib 
   src/symmetrics/feistel_network.cpp
+  src/encryption_modes/ecb.cpp
     )
     
     target_include_directories(crypto_lib PUBLIC 
                             ${CMAKE_CURRENT_SOURCE_DIR}/src/symmetrics
+                            ${CMAKE_CURRENT_SOURCE_DIR}/src/encryption_modes
                            )
 
 if(BUILD_TESTING)

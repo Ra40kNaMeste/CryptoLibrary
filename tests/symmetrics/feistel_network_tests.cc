@@ -36,7 +36,6 @@ public:
 
 protected:
   virtual std::array<std::byte, 1> get_round_key(int i) override {
-    std::cout << "i = " << i << std::endl;
     auto res = std::array<std::byte, 1>{(std::byte)this->_key[i]};
     return res;
   }
@@ -52,55 +51,34 @@ protected:
 };
 TEST(SymmetricsFeistelTests, EncryptionOneMoveBlocks) {
   EmptyFeistelNetworkTest<4, 3, 4, 1> network(std::array<std::byte, 4>{}, 1);
-  std::shared_ptr<std::istringstream> input =
-      std::make_shared<std::istringstream>("000011112222");
-  std::shared_ptr<std::ostringstream> output =
-      std::make_shared<std::ostringstream>();
-  network.encryption(input, output);
-  auto res = output->str();
-  ASSERT_EQ("111122220000", res);
+  std::array<char, 12> output;
+  network.encryption("000011112222", output.data());
+  ASSERT_EQ("111122220000", std::string(output.data(), output.size()));
 }
 TEST(SymmetricsFeistelTests, EncryptionTwoMoveBlocks) {
 
   EmptyFeistelNetworkTest<4, 3, 4, 1> network(std::array<std::byte, 4>{}, 2);
-  std::shared_ptr<std::istringstream> input =
-      std::make_shared<std::istringstream>("000011112222");
-  std::shared_ptr<std::ostringstream> output =
-      std::make_shared<std::ostringstream>();
-  network.encryption(input, output);
-  auto res = output->str();
-  ASSERT_EQ("222200001111", res);
+std::array<char, 12> output;
+  network.encryption("000011112222", output.data());
+  ASSERT_EQ("222200001111", std::string(output.data(), output.size()));
 }
 TEST(SymmetricsFeistelTests, EncryptionThreeMoveBlocks) {
 
   EmptyFeistelNetworkTest<4, 3, 4, 1> network(std::array<std::byte, 4>{}, 3);
-  std::shared_ptr<std::istringstream> input =
-      std::make_shared<std::istringstream>("000011112222");
-  std::shared_ptr<std::ostringstream> output =
-      std::make_shared<std::ostringstream>();
-  network.encryption(input, output);
-  auto res = output->str();
-  ASSERT_EQ("000011112222", res);
+  std::array<char, 12> output;
+  network.encryption("000011112222", output.data());
+  ASSERT_EQ("000011112222", std::string(output.data(), output.size()));
 }
 TEST(SymmetricsFeistelTests, EncryptionBlocks) {
 
   SimplyFeistelNetwork network;
-  std::shared_ptr<std::istringstream> input =
-      std::make_shared<std::istringstream>("01");
-  std::shared_ptr<std::ostringstream> output =
-      std::make_shared<std::ostringstream>();
-  network.encryption(input, output);
-  auto res = output->str();
-  ASSERT_EQ("31", res);
+std::array<char, 2> output;
+  network.encryption("01", output.data());
+  ASSERT_EQ("31", std::string(output.data(), output.size()));
 }
 TEST(SymmetricsFeistelTests, DecryptionBlocks) {
-
   SimplyFeistelNetwork network;
-  std::shared_ptr<std::istringstream> input =
-      std::make_shared<std::istringstream>("01");
-  std::shared_ptr<std::ostringstream> output =
-      std::make_shared<std::ostringstream>();
-  network.decryption(input, output);
-  auto res = output->str();
-  ASSERT_EQ("31", res);
+std::array<char, 2> output;
+  network.decryption("01", output.data());
+  ASSERT_EQ("31", std::string(output.data(),output.size()));
 }
