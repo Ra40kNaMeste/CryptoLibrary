@@ -31,6 +31,7 @@ if(BUILD_TESTING)
   add_executable(
     tests
     tests/symmetrics/feistel_network_tests.cc
+    tests/encryption_modes/ecbtests.cc
   )
   target_link_libraries(
     tests
