@@ -25,10 +25,9 @@ protected:
 
   virtual void append(char *target, const char *value) override {}
 };
-class SimplyFeistelNetwork : public EmptyFeistelNetworkTest<1, 2, 3, 1> {
+class SimplyFeistelNetwork : public FeistelNetwork<1, 2, 3, 1> {
 public:
-  SimplyFeistelNetwork()
-      : EmptyFeistelNetworkTest<1, 2, 3, 1>(std::array<std::byte, 3>{}, 3) {
+  SimplyFeistelNetwork() : FeistelNetwork(std::array<std::byte, 3>{}, 3) {
     _key[0] = (std::byte)1;
     _key[1] = (std::byte)2;
     _key[2] = (std::byte)3;
@@ -58,7 +57,7 @@ TEST(SymmetricsFeistelTests, EncryptionOneMoveBlocks) {
 TEST(SymmetricsFeistelTests, EncryptionTwoMoveBlocks) {
 
   EmptyFeistelNetworkTest<4, 3, 4, 1> network(std::array<std::byte, 4>{}, 2);
-std::array<char, 12> output;
+  std::array<char, 12> output;
   network.encryption("000011112222", output.data());
   ASSERT_EQ("222200001111", std::string(output.data(), output.size()));
 }
@@ -72,13 +71,13 @@ TEST(SymmetricsFeistelTests, EncryptionThreeMoveBlocks) {
 TEST(SymmetricsFeistelTests, EncryptionBlocks) {
 
   SimplyFeistelNetwork network;
-std::array<char, 2> output;
+  std::array<char, 2> output;
   network.encryption("01", output.data());
   ASSERT_EQ("31", std::string(output.data(), output.size()));
 }
 TEST(SymmetricsFeistelTests, DecryptionBlocks) {
   SimplyFeistelNetwork network;
-std::array<char, 2> output;
+  std::array<char, 2> output;
   network.decryption("01", output.data());
-  ASSERT_EQ("31", std::string(output.data(),output.size()));
+  ASSERT_EQ("31", std::string(output.data(), output.size()));
 }

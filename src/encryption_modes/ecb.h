@@ -5,15 +5,17 @@
 #include <istream>
 #include <memory>
 #include <ostream>
+
+//"электронная кодовая книга. Кодирует и раскодирует в realtime"
 template <int size_key> class ECB : public EncryptionModeBase<size_key> {
 public:
   ECB(std::shared_ptr<ISymmetric<size_key>> encryptor)
       : EncryptionModeBase<size_key>(encryptor) {}
   ~ECB<size_key>() {}
 
-  void encryption(std::shared_ptr<std::istream> input,
+  void encryption(const std::shared_ptr<std::istream> input,
                   std::shared_ptr<std::ostream> output) override;
-  void decryption(std::shared_ptr<std::istream> input,
+  void decryption(const std::shared_ptr<std::istream> input,
                   std::shared_ptr<std::ostream> output) override;
 };
 #include "ecb.cpp"

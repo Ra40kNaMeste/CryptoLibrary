@@ -1,3 +1,4 @@
+#pragma once
 #include "isymmetric.h"
 #include <istream>
 #include <memory>
@@ -9,9 +10,9 @@ public:
   }
   virtual ~EncryptionModeBase() {}
 
-  virtual void encryption(std::shared_ptr<std::istream> input,
+  virtual void encryption(const std::shared_ptr<std::istream> input,
                           std::shared_ptr<std::ostream> output) = 0;
-  virtual void decryption(std::shared_ptr<std::istream> input,
+  virtual void decryption(const std::shared_ptr<std::istream> input,
                           std::shared_ptr<std::ostream> output) = 0;
 
 protected:
