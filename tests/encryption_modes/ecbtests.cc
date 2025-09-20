@@ -1,5 +1,4 @@
 #include "ecb.h"
-#include "isymmetric.h"
 #include <gtest/gtest.h>
 #include <memory>
 #include <simply_symmetric.h>

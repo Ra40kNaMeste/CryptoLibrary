@@ -8,11 +8,9 @@ void ECB<size_key>::encryption(const std::shared_ptr<std::istream> input,
   auto block_size = this->encryptor->get_size_block();
   char buffer[block_size];
   char out_buf[block_size];
-  int i = 0;
-  while (input->read(buffer, block_size) && i < 5) {
+  while (input->read(buffer, block_size)) {
     this->encryptor->encryption(buffer, out_buf);
     output->write(out_buf, block_size);
-    i++;
   }
 
   auto count = input->gcount();

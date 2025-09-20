@@ -33,6 +33,7 @@ if(BUILD_TESTING)
     tests/symmetrics/feistel_network_tests.cc
     tests/encryption_modes/ecbtests.cc
     tests/encryption_modes/cbctests.cc
+    tests/encryption_modes/cfbtests.cc
   )
   target_include_directories(tests PRIVATE tests/commons)
   target_link_libraries(
